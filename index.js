@@ -31,7 +31,7 @@ io.on('connection', function(socket){   // When new player connects
 
 console.log("data: "+ JSON.stringify(data));
 var structure = data;
-console.log("struct: " + structure);
+console.log("struct: " + structure); 
 /*
         socket.emit('spawn', player);   
         socket.broadcast.emit('spawn', player); // Notify others about my spawn
