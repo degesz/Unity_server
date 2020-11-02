@@ -1,6 +1,6 @@
 var shortID = require('shortid');
 var Vector2 = require('./Vector2.js');
-const Structure = require('./Classes/Structure.js');
+const Structure = require('./Structure.js');
 
 module.exports = class Player {
     constructor(){
