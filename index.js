@@ -4,6 +4,7 @@ var Globalize = require('globalize');
 
 // Custom classes:
 var Player = require('./Classes/Player.js');
+const Structure = require('./Classes/Structure.js');
 let Prototypes = require('./Classes/Utility/Prototypes') //Brings in all prototype functions for the first time
 
 
@@ -23,14 +24,23 @@ io.on('connection', function(socket){   // When new player connects
     socket[thisPlayerId] = socket;
 
     socket.emit('register', {id: thisPlayerId});
-    socket.emit('spawn', player);   
-    socket.broadcast.emit('spawn', player); // Notify others about my spawn
+    
+  
 
-    for(var playerID in players){   // Tell me about players already in game
-        if(playerID != thisPlayerId){
-            socket.emit('spawn', players[playerID]);
-        }
-    }
+    socket.on('myStructure', function(data){
+
+console.log("data: "+ JSON.stringify(data));
+var structure = data;
+console.log("struct: " + structure);
+/*
+        socket.emit('spawn', player);   
+        socket.broadcast.emit('spawn', player); // Notify others about my spawn
+        for(var playerID in players){   // Tell me about players already in game
+            if(playerID != thisPlayerId){
+                socket.emit('spawn', players[playerID]);
+            }
+        }*/
+    })
 
     // Position data from player
     socket.on('updatePosition', function(data){

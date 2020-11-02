@@ -6,5 +6,6 @@ module.exports = class Player {
         this.username;
         this.id = shortID.generate();
         this.position = new Vector2();  
+        this.structure = new Structure();
     }
 }
