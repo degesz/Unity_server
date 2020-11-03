@@ -29,17 +29,15 @@ io.on('connection', function(socket){   // When new player connects
 
     socket.on('myStructure', function(data){
 
-console.log("data name: "+ data.name);
-var structure = data;
-//console.log("struct: " + structure); 
-/*
+        console.log("Recieved structure: "+ data.name); // print structure name
+
         socket.emit('spawn', player);   
         socket.broadcast.emit('spawn', player); // Notify others about my spawn
         for(var playerID in players){   // Tell me about players already in game
             if(playerID != thisPlayerId){
                 socket.emit('spawn', players[playerID]);
             }
-        }*/
+        }
     })
 
     // Position data from player
