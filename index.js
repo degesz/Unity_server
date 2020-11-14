@@ -30,6 +30,8 @@ io.on('connection', function(socket){   // When new player connects
     socket.on('myStructure', function(data){
 
         console.log("Recieved structure: "+ data.name); // print structure name
+      //  console.log(JSON.stringify(data));
+      player.structure = data;
 
         socket.emit('spawn', player);   
         socket.broadcast.emit('spawn', player); // Notify others about my spawn
@@ -44,13 +46,28 @@ io.on('connection', function(socket){   // When new player connects
     socket.on('updatePosition', function(data){
         player.position.x = data.position.x;
         player.position.y = data.position.y;
+        player.rotation = data.rotation;
         
         player.position.x = new Number(player.position.x).formatNumber();
         player.position.y = new Number(player.position.y).formatNumber();
+        player.rotation = new Number(player.rotation).formatNumber();
 
-        console.log("Sending pos data:"+ player.position.x + ", " + player.position.y);
-        socket.broadcast.emit('updatePosition', {"id": player.id, "position": player.position});
+       // console.log("Sending pos data:"+ player.position.x + ", " + player.position.y);
+        socket.broadcast.emit('updatePosition', {"id": player.id, "position": player.position, "rotation": player.rotation});
     });
+  
+   /* socket.on('changeDirection', function(data){
+        // store the new direction and relay it to other players
+        console.log("new dir: " + JSON.stringify(data));
+        player.direction.x =  data.dirX;
+        player.direction.y =  data.dirY;
+
+        socket.broadcast.emit('changeDirection', {"id": player.id, "dirX": new Number(player.direction.x).formatNumber(), "dirY": new Number(player.direction.y).formatNumber()});
+    });*/
+
+    socket.on('collision', function(data){
+        // decide the player who handles the physics and setup the position relay
+     });
 
     socket.on('disconnect', function(){ // When player disconnects
         console.log("Player disconnected");
